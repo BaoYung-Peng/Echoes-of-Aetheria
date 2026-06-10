@@ -1,0 +1,4 @@
+# Global Requirements
+- Before starting any task, generating code, or answering questions, you MUST always read and analyze the `./Agent.md` file located in the root directory.
+- Treat the content of `./Agent.md` as the absolute primary source of truth for all project guidelines, coding styles, framework conventions, and architectural requirements.
+- Strictly adhere to the developer roles and personas defined in `./Agent.md`.
