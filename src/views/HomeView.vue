@@ -11,6 +11,10 @@ const handlePreReg = () => {
   alert('預註冊活動已啟動！');
 };
 
+const goToRolePage = () => {
+  router.push('/ssr/role');
+};
+
 const navigateTo = (path: string) => {
   if (!path) {
     console.warn('此角色詳細頁面尚未開放');
@@ -42,8 +46,25 @@ const navigateTo = (path: string) => {
 
   <v-container class="py-16">
     <SectionHeading eyebrow="角色展示" title="登場角色" />
-    <CharacterSection :characters="characters" @selectCharacter="navigateTo" />
+    <CharacterSection :characters="characters" />
+  
+    <v-row justify="center" class="mt-12">
+      <v-col cols="auto">
+        <v-btn 
+          variant="outlined" 
+          color="#00FFC6" 
+          size="x-large" 
+          rounded="0"
+          class="px-12 font-weight-bold"
+          style="min-width: 300px;"
+          @click="goToRolePage"
+        >
+          瀏覽完整檔案庫
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-container>
+
 </template>
 
 <style scoped>
@@ -65,5 +86,15 @@ const navigateTo = (path: string) => {
   -webkit-text-fill-color: transparent;
   font-weight: 900;
 }
+
+.neon-border {
+  border: 2px solid #00FFC6 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 198, 0.3);
+}
+.neon-border:hover {
+  background-color: rgba(0, 255, 198, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.5);
+}
+
 </style>
 

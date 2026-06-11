@@ -46,9 +46,9 @@ const characters = ref<Record<string, Character>>({
     subtitle: "STREAMING HACKER (CYBER GLITCH)",
     rarity: "SSR 限定登場",
     world: "星刻市 / 現實維度",
-    role: "特殊 / 弱點標記",
+    role: "特殊",
     position: "數據破綻者",
-    elements: "主要屬性: 特殊 / 連鎖支援",
+    elements: "異界屬性: 弱點機制 / 連鎖觸發",
     quote: "「數據不會說謊，人卻會。讓我來解開這座城市的秘密。」",
     height: "154 cm",
     race: "人類",
@@ -70,80 +70,92 @@ const characters = ref<Record<string, Character>>({
       { icon: "🌐", name: "終結技：流光天幕", desc: "駭入戰場，改寫空間規則，對所有敵人造成屬性傷害並降低防禦。" }
     ],
     voices: [
-      { label: "🔊 初次見面", text: "「唷！今天又要入侵哪台伺服器？事先聲明，本小姐收費可是很貴的！」" },
-      { label: "🔊 關於代碼", text: "「程式碼是世界上唯一完美的語言，只要輸入正確，它就不會背叛你。」" }
+      { label: "關於現實身分（現實維度互動）", text: "「（微弱的聲音）那、那個……導標者，下次開會你可以坐在我旁邊嗎？主、主管看我的眼神好可怕……如果我等一下又講不出話，你可以幫我拿著這個貝雷帽嗎？拿著它我比較有安全感……」" },
+      { label: "戰鬥登入（異界切換瞬間）：", text: "「（深呼吸，語氣瞬間冷酷、充滿挑釁）那些在現實裡踩在我頭上的垃圾，現在，換我來重新定義你們的生存代碼了。準備好被我格式化了嗎？」" }
     ]
   },
   guardian: {
-    name: "星刻守護者",
-    subtitle: "GUARDIAN OF STAR CARVING",
-    rarity: "SSR 限定登場",
-    world: "星刻市 / 現實維度",
-    role: "防禦 / 場地改寫",
-    position: "前排守護",
-    elements: "主要屬性: 秩序 / 場地",
-    quote: "「拜託~為什麼我要遇到這種倒楣事」",
-    height: "165 cm",
-    race: "人類",
-    weapon: "冰晶汐刃",
-    cv: "石川由依",
-    desc: "身為星刻市的守護者，她以冰晶刃在現實與幻界之間劃出防線。她的技能能重塑場地，讓 4+1 隊伍在次元切換時保有戰術空間。",
-    prompt: "masterpiece, best quality, 1girl, silver hair, purple tactical armor, glowing ice greatsword, neon city street, glass mist, anime style, high detail, sharp focus.",
-    mechanics: [
-      "場地轉換時提供防守與路徑重塑",
-      "在現實維度保持隊伍站位穩定",
-      "連鎖支援可打斷敵方異界流程"
-    ],
-    emoji: "🛡️",
-    placeholder: "[立繪模擬：星刻守護者]",
-    image: cute2Image,
-    skills: [
-      { icon: "🪓", name: "普通攻擊：冰晶突刺", desc: "快速突刺單體目標，並在被命中的敵人周圍生成冰晶防護場。" },
-      { icon: "🛡️", name: "戰技：守護之冰壁", desc: "構築防禦力場，抵擋遠程攻擊並改變場地屬性，為隊友提供連鎖觸發支持。" },
-      { icon: "❄️", name: "終結技：冰河星辰", desc: "以冰河之力重塑戰場，對全體敵人造成範圍傷害並減速，同時短暫凍結部分異界效果。" }
-    ],
-    voices: [
-      { label: "🔊 初次見面", text: "「可以不要天天加班嗎？這種事不要找我比較好。」" },
-      { label: "🔊 戰鬥信念", text: "「劍刃是為了信念而揮舞，並非為了發洩仇恨。」" }
-    ]
-  },
+      name: "星刻守護者",
+      subtitle: "GUARDIAN OF STAR CARVING",
+      rarity: "SSR 限定登場",
+      world: "星刻市 / 現實維度",
+      role: "防禦者",
+      position: "前排守護",
+      elements: "異界屬性: 破盾者 / 場地改寫",
+      quote: "「拜託~為什麼我要遇到這種倒楣事」",
+      height: "165 cm",
+      race: "人類",
+      weapon: "冰晶汐刃",
+      cv: "石川由依",
+      desc: "現實是星芒科技活潑元氣的上班族，異界中則是守護防線的銀髮劍聖。她以冰晶汐刃在現實與幻界間劃出防線，重塑場地讓 4+1 隊伍在次元切換時保有戰術空間。",
+      prompt: "masterpiece, best quality, 1girl, silver hair, ice blue eyes, elegant white and royal blue battle dress, holding a glowing crystal greatsword embedded in cracked ice, snowy frozen castle background, anime style, high detail, sharp focus.",
+      mechanics: [
+        "場地轉換時提供防守與路徑重塑",
+        "在現實維度保持隊伍站位穩定",
+        "連鎖支援可打斷敵方異界流程"
+      ],
+      emoji: "🛡️",
+      placeholder: "[立繪模擬：星刻守護者]",
+      image: cute2Image,
+      skills: [
+        { icon: "🪓", name: "普通攻擊：冰晶突刺", desc: "快速突刺單體目標並生成冰晶防護場。" },
+        { icon: "🛡️", name: "戰技：守護之冰壁", desc: "構築防禦力場，抵擋遠程攻擊並改變場地屬性。" },
+        { icon: "❄️", name: "終結技：冰河星辰", desc: "以冰河之力重塑戰場，造成全體範圍傷害、減速並凍結異界效果。" }
+      ],
+      voices: [
+        { label: "🔊 關於現實身分（現實維度互動）", text: "「主管！這份報告改好囉～（小聲）可以不要天天加班嗎？這種事不要找我比較好…」" },
+        { label: "🔊 戰鬥登入（異界切換瞬間）", text: "「（語氣冰冷）劍刃是為了信念而揮舞，並非為了發洩仇恨。…不准看著我，退後。」" }
+      ]
+    },
   guide: {
     name: "幻境導師",
-    subtitle: "THE ETHEREAL GUIDE (ELF SCHOLAR)",
+    subtitle: "THE ETHEREAL GUIDE (Shepherd of Souls & Master of Illusion)",
     rarity: "SSR 限定登場",
-    world: "阿爾卡迪亞 / 異界維度",
-    role: "支援 / 幻境引導",
+    world: "星刻市 / 現實維度 (第七層灰塵)",
+    role: "反制專家",
     position: "後排輔助",
-    elements: "主要屬性: 星魂 / 幻境",
-    quote: "「夢境與真實、只有一線之隔。看破虛幻、便是真實。旅人，你準備好在我的槍尖下直面靈魂的倒影了嗎？」",
-    height: "168 cm",
+    elements: "異界屬性: 治療者 / 增益提供者",
+    quote: "「夢境與真實，只有一線之隔。看破虛幻，便是真實。旅人，你準備好在我的槍尖下，直面靈魂的倒影了嗎？」",
+    height: "178 cm", // 依據高挑優雅的皇家學者剪影比例微調
     race: "純血妖精族 (Elf)",
-    weapon: "星輝交織之長槍",
+    weapon: "星織之槍 (Star-Woven Spear)", // 同步設定集Verbatim
     cv: "能登麻美子",
-    desc: "古老阿爾卡迪亞的靈魂導師，她操控幻境與星辰力量，引導導標者在異界中找到弱點與共鳴。她的存在讓隊伍在次元切換時能保持隊伍輔助節奏。",
-    prompt: "masterpiece, best quality, 1girl, elf, long flowing blonde hair, glowing purple eyes, ornate spear, ethereal violet robes, floating runes, dreamlike mist, anime style, high detail.",
+    desc: "穿梭於夢境與星界之間的古老靈魂導師。她操控不穩定的次元與幻境力量，引導導標者透過其「稜鏡之瞳」洞悉敵方靈魂的弱點與共鳴。她的存在能完美維持隊伍在次元切換時的輔助節奏。",
+    prompt: "masterpiece, best quality, 1girl, elf scholar, long flowing blonde hair, glowing purple prismatic eyes, Star-Woven Spear, suspended floating weapon components, ethereal cosmic violet robes, translucent ether fabric, floating gold runes, dreamlike mist, rim lighting, anime style, high detail.",
     mechanics: [
-      "幻境引導異界隊伍能量流",
-      "降低敵方異界抗性並擴大弱點效果",
-      "連鎖終結技提供全隊護盾與充能"
+      "「夢境迷霧」引導異界隊伍能量流轉",
+      "「稜鏡之瞳」降低敵方異界抗性並擴大靈魂弱點效果",
+      "連鎖終結技「靈魂倒影」提供全隊幾何護盾與星辰充能"
     ],
     emoji: "✨",
     placeholder: "[立繪模擬：幻境導師]",
     image: cute3Image,
     skills: [
-      { icon: "🌟", name: "普通攻擊：星隕刺擊", desc: "以星辰長槍進行連續刺擊，造成神聖屬性傷害並附加幻境印記。" },
-      { icon: "🔮", name: "戰技：鏡花水月", desc: "展開幻境法陣，讓目標進入低防禦狀態並減少異界抗性。" },
-      { icon: "🕊️", name: "終結技：羽翼綻放・靈魂倒影", desc: "引爆幻境力量，為全隊提供能量充能、護盾與短暫異界增幅。" }
+      {
+        icon: "🌟",
+        name: "普通攻擊：星隕刺擊",
+        desc: "以懸浮重組的星織長槍進行連續幾何刺擊，造成神聖與幻境屬性傷害，並為目標附加「星痕印記」。"
+      },
+      {
+        icon: "🔮",
+        name: "戰技：鏡花水月",
+        desc: "展開不穩定的幻境法陣，以「夢境迷霧」籠罩戰場，使敵方全體防禦力降低並大幅削弱其異界抗性。"
+      },
+      {
+        icon: "🕊️",
+        name: "終結技：羽翼綻放・靈魂倒影",
+        desc: "全面引爆不穩定次元力量，使背後懸浮符文破繭而出。為全隊提供巨額能量充能與星辰護盾，並獲得短暫的「異界增幅」狀態。"
+      }
     ],
     voices: [
-      { label: "🔊 初次見面", text: "「我是引路者，亦是你的歸宿。不用害怕這迷茫的深淵，我會引導你。」" },
-      { label: "🔊 關於長槍", text: "「這柄長槍並非用於殺戮，而是用來劃破兩界之間虛假的帷幕。」" }
+      { label: "🔊 關於現實身分（現實維度互動）", text: "「在那個滿是鐵鏽與古董的地下室裡（第七層灰塵），棒棒糖的甜味，偶爾能讓我忘卻星海深處的嘈雜。」" },
+      { label: "🔊 戰鬥登入（異界切換瞬間）", text: "「我是引路者，亦是你的歸宿。不用害怕這迷茫的深淵，握緊我的手，我會引導你。" },
     ]
   }
 })
 
 // 當前狀態控制
-const currentCharacterId = ref<string>('guardian')
+const currentCharacterId = ref<string>('hacker')
 const activeTab = ref<string>('profile')
 const snackbar = ref<boolean>(false)
 
@@ -153,13 +165,13 @@ const currentCharacter = computed(() => characters.value[currentCharacterId.valu
 // 計算屬性：將履歷轉換為容易跑迴圈的格式
 const profileDetails = computed(() => {
   return {
-    '身高': currentCharacter.value.height,
-    '種族': currentCharacter.value.race,
-    '戰陣定位': currentCharacter.value.role,
-    '戰場位置': currentCharacter.value.position,
-    '元素屬性': currentCharacter.value.elements,
-    '專屬武器': currentCharacter.value.weapon,
-    '配音 (CV)': currentCharacter.value.cv
+    '身高：': currentCharacter.value.height,
+    '種族：': currentCharacter.value.race,
+    '戰陣定位：': currentCharacter.value.role,
+    '戰場位置：': currentCharacter.value.position,
+    '元素屬性：': currentCharacter.value.elements,
+    '專屬武器：': currentCharacter.value.weapon,
+    '配音 (CV)：': currentCharacter.value.cv
   }
 })
 
@@ -220,25 +232,22 @@ function getSkillIconClass(index: number): string {
           角色定位 / 戰陣職能
         </p>
 
-        <v-card
-          v-for="(char, id) in characters"
-          :key="id"
-          variant="outlined"
-          :class="[
-            'card-glass p-4 rounded-xl cursor-pointer transition-all border-1',
-            currentCharacterId === id ? getActiveIdClass(id) : 'border-white/10'
-          ]"
-          @click="selectCharacter(id)"
-        >
+        <v-card v-for="(char, id) in characters" :key="id" variant="outlined" :class="[
+          'card-glass p-4 rounded-xl cursor-pointer transition-all border-1',
+          // 判斷是否為當前選中，若選中則給予 active 樣式，否則給予預設邊框
+          currentCharacterId === id ? 'card-active-style' : 'border-white/10'
+        ]" @click="selectCharacter(id)">
           <div class="d-flex align-center space-x-4">
-            <div class="w-16 h-16 bg-gray-900 rounded-xl flex-shrink-0 d-flex align-center justify-center text-2xl border border-white/10">
+            <div
+              class="w-16 h-16 bg-gray-900 rounded-xl flex-shrink-0 d-flex align-center justify-center text-2xl border border-white/10">
               {{ char.emoji }}
             </div>
             <div class="overflow-hidden">
               <span :class="['text-[10px] font-bold tracking-wider uppercase', getTagColorClass(id)]">
                 {{ char.world }}
               </span>
-              <h4 :class="['text-lg font-black text-white mt-0.5', currentCharacterId === id && id === 'guardian' ? 'glow-gold' : '']">
+              <h4
+                :class="['text-lg font-black text-white mt-0.5', currentCharacterId === id && id === 'guardian' ? 'glow-gold' : '']">
                 {{ char.name }}
               </h4>
               <p class="text-xs text-slate-400 mt-1 truncate max-w-[200px]">
@@ -253,14 +262,10 @@ function getSkillIconClass(index: number): string {
         <v-row>
           <v-col cols="12" md="5" class="d-flex flex-column space-y-6">
             <v-card variant="outlined" class="card-glass p-6 rounded-2xl relative overflow-hidden">
-              <div class="h-80 bg-gray-950 rounded-xl d-flex align-center justify-center text-slate-500 border border-white/5 relative overflow-hidden">
+              <div
+                class="h-80 bg-gray-950 rounded-xl d-flex align-center justify-center text-slate-500 border border-white/5 relative overflow-hidden">
                 <span class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></span>
-                <v-img
-                  v-if="currentCharacter.image"
-                  :src="currentCharacter.image"
-                  height="100%"
-                  class="object-cover"
-                />
+                <v-img v-if="currentCharacter.image" :src="currentCharacter.image" height="100%" class="object-cover" />
                 <div v-else class="relative z-20 text-center px-4">
                   <span class="text-6xl mb-4 block">{{ currentCharacter.emoji }}</span>
                   <span class="text-xs tracking-widest text-slate-400">{{ currentCharacter.placeholder }}</span>
@@ -270,7 +275,8 @@ function getSkillIconClass(index: number): string {
               <div class="mt-6">
                 <div class="d-flex justify-space-between align-center">
                   <div>
-                    <span class="text-[10px] font-bold tracking-widest text-amber-500 bg-amber-950/40 px-3 py-1 rounded-full border border-amber-500/20">
+                    <span
+                      class="text-[10px] font-bold tracking-widest text-amber-500 bg-amber-950/40 px-3 py-1 rounded-full border border-amber-500/20">
                       {{ currentCharacter.rarity }}
                     </span>
                   </div>
@@ -298,30 +304,21 @@ function getSkillIconClass(index: number): string {
                 <span class="text-[10px] text-purple-400 bg-purple-950/40 px-2 py-0.5 rounded-md">無暇版</span>
               </div>
               <div class="bg-black/60 p-3 rounded-lg border border-slate-800/80">
-                <p class="text-[11px] text-slate-400 font-mono select-all leading-relaxed break-words h-24 overflow-y-auto">
+                <p
+                  class="text-[11px] text-slate-400 font-mono select-all leading-relaxed break-words h-24 overflow-y-auto">
                   {{ currentCharacter.prompt }}
                 </p>
               </div>
-              <v-btn
-                block
-                variant="outlined"
-                color="amber-darken-2"
-                class="mt-3 text-none text-xs font-bold tracking-wider"
-                @click="copyPrompt"
-              >
+              <v-btn block variant="outlined" color="amber-darken-2"
+                class="mt-3 text-none text-xs font-bold tracking-wider" @click="copyPrompt">
                 複製完整繪圖提示詞
               </v-btn>
             </v-card>
           </v-col>
 
           <v-col cols="12" md="7" class="d-flex flex-column justify-center">
-            <v-tabs
-              v-model="activeTab"
-              bg-color="transparent"
-              color="amber-darken-2"
-              grow
-              class="mb-6 border-b border-white/5"
-            >
+            <v-tabs v-model="activeTab" bg-color="transparent" color="amber-darken-2" grow
+              class="mb-6 border-b border-white/5">
               <v-tab value="profile" class="text-sm font-bold tracking-widest text-slate-400">角色履歷</v-tab>
               <v-tab value="skills" class="text-sm font-bold tracking-widest text-slate-400">技能星盤</v-tab>
               <v-tab value="voice" class="text-sm font-bold tracking-widest text-slate-400">幻境語音</v-tab>
@@ -350,7 +347,8 @@ function getSkillIconClass(index: number): string {
                     {{ currentCharacter.desc }}
                   </p>
                   <div class="space-y-2">
-                    <div v-for="(item, index) in currentCharacter.mechanics" :key="index" class="flex items-start space-x-2">
+                    <div v-for="(item, index) in currentCharacter.mechanics" :key="index"
+                      class="flex items-start space-x-2">
                       <span class="text-amber-400">•</span>
                       <p class="text-slate-300 text-xs leading-relaxed">{{ item }}</p>
                     </div>
@@ -359,16 +357,15 @@ function getSkillIconClass(index: number): string {
               </v-window-item>
 
               <v-window-item value="skills" class="space-y-4">
-                <div
-                  v-for="(skill, index) in currentCharacter.skills"
-                  :key="index"
-                  class="d-flex align-center space-x-4 bg-white/5 p-4 rounded-xl border border-white/5"
-                >
-                  <div :class="['w-12 h-12 rounded-full border d-flex align-center justify-center text-xl flex-shrink-0', getSkillIconClass(index)]">
+                <div v-for="(skill, index) in currentCharacter.skills" :key="index"
+                  class="d-flex align-center space-x-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                  <div
+                    :class="['w-12 h-12 rounded-full border d-flex align-center justify-center text-xl flex-shrink-0', getSkillIconClass(index)]">
                     {{ skill.icon }}
                   </div>
                   <div>
-                    <h5 :class="['font-bold text-sm', index === 1 ? 'text-amber-400' : index === 2 ? 'text-purple-400' : 'text-white']">
+                    <h5
+                      :class="['font-bold text-sm', index === 1 ? 'text-amber-400' : index === 2 ? 'text-purple-400' : 'text-white']">
                       {{ skill.name }}
                     </h5>
                     <p class="text-xs text-slate-400 mt-1">{{ skill.desc }}</p>
@@ -378,11 +375,8 @@ function getSkillIconClass(index: number): string {
 
               <v-window-item value="voice" class="space-y-4">
                 <v-card variant="outlined" class="card-glass p-5 rounded-2xl space-y-4">
-                  <div
-                    v-for="(voice, index) in currentCharacter.voices"
-                    :key="index"
-                    :class="{ 'border-b border-white/5 pb-3': index === 0 }"
-                  >
+                  <div v-for="(voice, index) in currentCharacter.voices" :key="index"
+                    :class="{ 'border-b border-white/5 pb-3': index === 0 }">
                     <span :class="['text-xs font-bold block mb-1', index === 0 ? 'text-amber-500' : 'text-purple-400']">
                       {{ voice.label }}
                     </span>
@@ -396,13 +390,8 @@ function getSkillIconClass(index: number): string {
       </v-col>
     </v-row>
 
-    <v-snackbar
-      v-model="snackbar"
-      timeout="2500"
-      color="amber-darken-2"
-      rounded="pill"
-      class="text-black font-bold text-center"
-    >
+    <v-snackbar v-model="snackbar" timeout="2500" color="amber-darken-2" rounded="pill"
+      class="text-black font-bold text-center">
       已成功複製繪圖提示詞！
     </v-snackbar>
   </v-container>
@@ -422,18 +411,6 @@ function getSkillIconClass(index: number): string {
 
 .glow-gold {
   text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
-}
-
-.card-glass {
-  background: rgba(255, 255, 255, 0.02) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.card-glass-active {
-  background: rgba(245, 158, 11, 0.05) !important;
-  border-color: rgba(245, 158, 11, 0.4) !important;
-  box-shadow: inset 0 0 15px rgba(245, 158, 11, 0.1);
 }
 
 .glow-line-gold {
