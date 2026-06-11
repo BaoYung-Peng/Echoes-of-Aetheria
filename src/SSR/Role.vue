@@ -13,7 +13,7 @@
     <v-row gap="6">
       <v-col cols="12" lg="4" class="space-y-4">
         <p class="text-xs font-bold text-amber-500/80 tracking-widest uppercase px-1">
-          選擇導標者檔案
+          角色定位 / 戰陣職能
         </p>
 
         <v-card
@@ -31,14 +31,14 @@
               {{ char.emoji }}
             </div>
             <div class="overflow-hidden">
-              <span :class="['text-[10px] font-bold tracking-wider', getTagColorClass(id)]">
-                {{ id === 'guardian' ? 'ORDER / PHYSICAL' : id === 'hacker' ? 'CHAOS / ELECTRIC' : 'SOUL / ILLUSION' }}
+              <span :class="['text-[10px] font-bold tracking-wider uppercase', getTagColorClass(id)]">
+                {{ char.world }}
               </span>
               <h4 :class="['text-lg font-black text-white mt-0.5', currentCharacterId === id && id === 'guardian' ? 'glow-gold' : '']">
                 {{ char.name }}
               </h4>
               <p class="text-xs text-slate-400 mt-1 truncate max-w-[200px]">
-                {{ char.quote }}
+                {{ char.role }}
               </p>
             </div>
           </div>
@@ -59,11 +59,13 @@
 
               <div class="mt-6">
                 <div class="d-flex justify-space-between align-center">
-                  <span class="text-[10px] font-bold tracking-widest text-amber-500 bg-amber-950/40 px-3 py-1 rounded-full border border-amber-500/20">
-                    {{ currentCharacter.rarity }}
-                  </span>
+                  <div>
+                    <span class="text-[10px] font-bold tracking-widest text-amber-500 bg-amber-950/40 px-3 py-1 rounded-full border border-amber-500/20">
+                      {{ currentCharacter.rarity }}
+                    </span>
+                  </div>
                   <span class="text-xs font-bold text-slate-300 font-serif-title">
-                    {{ currentCharacter.elements }}
+                    {{ currentCharacter.world }}
                   </span>
                 </div>
                 <h3 class="text-3xl font-black text-white mt-3 font-serif-title glow-gold">
@@ -72,6 +74,11 @@
                 <p class="text-[10px] tracking-wider text-slate-400 uppercase mt-1">
                   {{ currentCharacter.subtitle }}
                 </p>
+                <div class="mt-3 text-xs text-slate-300 tracking-wider">
+                  <span class="font-bold text-white">戰陣定位：</span>{{ currentCharacter.role }}
+                  <span class="mx-2">•</span>
+                  <span class="font-bold text-white">位置：</span>{{ currentCharacter.position }}
+                </div>
               </div>
             </v-card>
 
@@ -126,12 +133,18 @@
                 </v-row>
 
                 <v-card variant="outlined" class="card-glass p-5 rounded-2xl border border-white/5">
-                  <h4 class="text-amber-500 font-bold mb-2.5 text-xs d-flex align-center">
+                  <h4 class="text-amber-500 font-bold mb-3 text-xs d-flex align-center">
                     <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span> 檔案庫解密資料
                   </h4>
-                  <p class="text-slate-300 text-xs leading-relaxed">
+                  <p class="text-slate-300 text-xs leading-relaxed mb-4">
                     {{ currentCharacter.desc }}
                   </p>
+                  <div class="space-y-2">
+                    <div v-for="(item, index) in currentCharacter.mechanics" :key="index" class="flex items-start space-x-2">
+                      <span class="text-amber-400">•</span>
+                      <p class="text-slate-300 text-xs leading-relaxed">{{ item }}</p>
+                    </div>
+                  </div>
                 </v-card>
               </v-window-item>
 
@@ -204,6 +217,9 @@ interface Character {
   name: string
   subtitle: string
   rarity: string
+  world: string
+  role: string
+  position: string
   elements: string
   quote: string
   height: string
@@ -212,6 +228,7 @@ interface Character {
   cv: string
   desc: string
   prompt: string
+  mechanics: string[]
   emoji: string
   placeholder: string
   skills: Skill[]
@@ -224,20 +241,28 @@ const characters = ref<Record<string, Character>>({
     name: "流光駭客",
     subtitle: "STREAMING HACKER (CYBER GLITCH)",
     rarity: "SSR 限定登場",
-    elements: "主要屬性: 特殊 / 弱點",
+    world: "星刻市 / 現實維度",
+    role: "特殊 / 弱點標記",
+    position: "數據破綻者",
+    elements: "主要屬性: 特殊 / 連鎖支援",
     quote: "「數據不會說謊，人卻會。讓我來解開這座城市的秘密。」",
     height: "154 cm",
     race: "人類",
     weapon: "虛擬音波鍵盤",
     cv: "悠木碧",
-    desc: "操縱數字數據流的天才駭客。她的指尖在虛擬鍵盤上躍動，能改寫現實維度的物理法則。",
-    prompt: "masterpiece, best quality, 1girl, twin tails, pink and teal hair, cyberpunk clothing, cyber goggles, holographic screens, futuristic server room background, anime style, trending on Pixiv.",
-    emoji: "",
+    desc: "擅長穿梭於星刻市資料雲塔與維度裂隙之間的破綻偵查者。她透過數據流標記弱點，讓隊伍能在 4+1 戰陣中引發精準連鎖。",
+    prompt: "masterpiece, best quality, 1girl, twin tails, pink and teal hair, cyberpunk clothing, cyber goggles, holographic screens, futuristic urban skyline, neon teal lighting, anime style, high detail.",
+    mechanics: [
+      "弱點標記引發 4+1 連鎖",
+      "現實維度數據滲透，強化下一次破盾",
+      "提供全隊能量與支援增益"
+    ],
+    emoji: "💻",
     placeholder: "[立繪模擬：流光駭客]",
     skills: [
-      { icon: "", name: "普通攻擊：代碼干涉", desc: "向目標發射數據流，造成持續的電子屬性干擾。" },
-      { icon: "", name: "戰技：系統超載", desc: "短暫大幅提升全隊能量獲取效率，並強化所有數據技能。" },
-      { icon: "", name: "終結技：流光天幕", desc: "將整個戰場駭入，改寫空間規則，使敵方防禦力崩塌 40%。" }
+      { icon: "💥", name: "普通攻擊：代碼干涉", desc: "發射數據流並標記弱點，使目標在下一次連鎖傷害中承受更多傷害。" },
+      { icon: "⚡", name: "戰技：系統超載", desc: "短暫提升全隊技能效率，並在都市模式下強化下一次破盾效果。" },
+      { icon: "🌐", name: "終結技：流光天幕", desc: "駭入戰場，改寫空間規則，對所有敵人造成屬性傷害並降低防禦。" }
     ],
     voices: [
       { label: "🔊 初次見面", text: "「唷！今天又要入侵哪台伺服器？事先聲明，本小姐收費可是很貴的！」" },
@@ -247,24 +272,32 @@ const characters = ref<Record<string, Character>>({
   guardian: {
     name: "星刻守護者",
     subtitle: "GUARDIAN OF STAR CARVING",
-    rarity: "限定登場",
-    elements: "主要屬性: 秩序",
+    rarity: "SSR 限定登場",
+    world: "星刻市 / 現實維度",
+    role: "防禦 / 場地改寫",
+    position: "前排守護",
+    elements: "主要屬性: 秩序 / 場地",
     quote: "「拜託~為什麼我要遇到這種倒楣事」",
     height: "165 cm",
     race: "人類",
-    weapon: "【冰晶汐刃】",
+    weapon: "冰晶汐刃",
     cv: "石川由依",
-    desc: "手持冰刃。她的劍刃能斬開虛假的霓虹，為在黑暗中迷失的市民開闢出一條通往真相的道路。",
-    prompt: "masterpiece, best quality, 1girl, silver hair, purple tactical armor, holding giant glowing greatsword, detailed mechanical sword, futuristic city street background, anime style, highly detailed, sharp focus.",
-    emoji: "[置入icon]",
+    desc: "身為星刻市的守護者，她以冰晶刃在現實與幻界之間劃出防線。她的技能能重塑場地，讓 4+1 隊伍在次元切換時保有戰術空間。",
+    prompt: "masterpiece, best quality, 1girl, silver hair, purple tactical armor, glowing ice greatsword, neon city street, glass mist, anime style, high detail, sharp focus.",
+    mechanics: [
+      "場地轉換時提供防守與路徑重塑",
+      "在現實維度保持隊伍站位穩定",
+      "連鎖支援可打斷敵方異界流程"
+    ],
+    emoji: "🛡️",
     placeholder: "[立繪模擬：星刻守護者]",
     skills: [
-      { icon: "", name: "普通攻擊", desc: "進行多次精密的突刺，造成目標單體物理傷害。" },
-      { icon: "", name: "戰技：守護之冰壁", desc: "短暫釋放防禦性力場，抵擋遠程子彈及能量射擊。【地形發生變化】" },
-      { icon: "", name: "終結技：冰河星辰", desc: "躍起向地面猛力轟擊，對全體敵人造成極高爆發性冰屬性範圍傷害。【時刻停止，停止長度依照等級決定】" }
+      { icon: "🪓", name: "普通攻擊：冰晶突刺", desc: "快速突刺單體目標，並在被命中的敵人周圍生成冰晶防護場。" },
+      { icon: "🛡️", name: "戰技：守護之冰壁", desc: "構築防禦力場，抵擋遠程攻擊並改變場地屬性，為隊友提供連鎖觸發支持。" },
+      { icon: "❄️", name: "終結技：冰河星辰", desc: "以冰河之力重塑戰場，對全體敵人造成範圍傷害並減速，同時短暫凍結部分異界效果。" }
     ],
     voices: [
-      { label: "🔊 初次見面", text: "「可以不要天天加班嗎?」" },
+      { label: "🔊 初次見面", text: "「可以不要天天加班嗎？這種事不要找我比較好。」" },
       { label: "🔊 戰鬥信念", text: "「劍刃是為了信念而揮舞，並非為了發洩仇恨。」" }
     ]
   },
@@ -272,20 +305,28 @@ const characters = ref<Record<string, Character>>({
     name: "幻境導師",
     subtitle: "THE ETHEREAL GUIDE (ELF SCHOLAR)",
     rarity: "SSR 限定登場",
+    world: "阿爾卡迪亞 / 異界維度",
+    role: "支援 / 幻境引導",
+    position: "後排輔助",
     elements: "主要屬性: 星魂 / 幻境",
     quote: "「夢境與真實、只有一線之隔。看破虛幻、便是真實。旅人，你準備好在我的槍尖下直面靈魂的倒影了嗎？」",
     height: "168 cm",
     race: "純血妖精族 (Elf)",
     weapon: "星輝交織之長槍",
     cv: "能登麻美子",
-    desc: "她是古老阿爾卡迪亞神域的守望者，擁有純淨的金色長髮與如同星空般深邃的紫色雙眸。透過手中的星辰長槍與夢境法術，導引迷失的馱標者找回失落的英雄意志。",
-    prompt: "masterpiece, best quality, 1girl, solo, elf, long flowy blonde hair, glowing purple eyes, elegant smile, soft blush, intricate white lace fantasy dress, ornate gold choker, beautiful jewelry, ethereal atmosphere, anime style, soft cinematic lighting, detailed digital painting, high resolution, soft focus background.",
-    emoji: "",
+    desc: "古老阿爾卡迪亞的靈魂導師，她操控幻境與星辰力量，引導導標者在異界中找到弱點與共鳴。她的存在讓隊伍在次元切換時能保持隊伍輔助節奏。",
+    prompt: "masterpiece, best quality, 1girl, elf, long flowing blonde hair, glowing purple eyes, ornate spear, ethereal violet robes, floating runes, dreamlike mist, anime style, high detail.",
+    mechanics: [
+      "幻境引導異界隊伍能量流",
+      "降低敵方異界抗性並擴大弱點效果",
+      "連鎖終結技提供全隊護盾與充能"
+    ],
+    emoji: "✨",
     placeholder: "[立繪模擬：幻境導師]",
     skills: [
-      { icon: "", name: "普通攻擊：星隕刺擊", desc: "手持華麗星徽長槍進行多段突刺，造成神聖屬性傷害。" },
-      { icon: "", name: "戰技：鏡花水月", desc: "展開法陣構築幻境，使大範圍目標進入防禦力大幅降低的昏睡夢境中。" },
-      { icon: "", name: "終結技：羽翼綻放・靈魂倒影", desc: "橫掃引爆幻境，在聖潔的光斑與光暈之中，為全隊提供巨量能量充能與聖光護盾。" }
+      { icon: "🌟", name: "普通攻擊：星隕刺擊", desc: "以星辰長槍進行連續刺擊，造成神聖屬性傷害並附加幻境印記。" },
+      { icon: "🔮", name: "戰技：鏡花水月", desc: "展開幻境法陣，讓目標進入低防禦狀態並減少異界抗性。" },
+      { icon: "🕊️", name: "終結技：羽翼綻放・靈魂倒影", desc: "引爆幻境力量，為全隊提供能量充能、護盾與短暫異界增幅。" }
     ],
     voices: [
       { label: "🔊 初次見面", text: "「我是引路者，亦是你的歸宿。不用害怕這迷茫的深淵，我會引導你。」" },
@@ -307,6 +348,9 @@ const profileDetails = computed(() => {
   return {
     '身高': currentCharacter.value.height,
     '種族': currentCharacter.value.race,
+    '戰陣定位': currentCharacter.value.role,
+    '戰場位置': currentCharacter.value.position,
+    '元素屬性': currentCharacter.value.elements,
     '專屬武器': currentCharacter.value.weapon,
     '配音 (CV)': currentCharacter.value.cv
   }
@@ -330,15 +374,15 @@ async function copyPrompt() {
 
 // 樣式對應輔助函式
 function getActiveIdClass(id: string): string {
-  if (id === 'guardian') return 'card-glass-active'
   if (id === 'hacker') return 'border-cyan-500/40 bg-cyan-950/10 text-cyan-400'
+  if (id === 'guardian') return 'card-glass-active'
   if (id === 'guide') return 'border-purple-500/40 bg-purple-950/10 text-purple-400'
   return ''
 }
 
 function getTagColorClass(id: string): string {
-  if (id === 'guardian') return 'text-amber-500'
-  if (id === 'hacker') return 'text-cyan-400'
+  if (id === 'hacker') return 'text-amber-500'
+  if (id === 'guardian') return 'text-cyan-400'
   if (id === 'guide') return 'text-purple-400'
   return ''
 }
