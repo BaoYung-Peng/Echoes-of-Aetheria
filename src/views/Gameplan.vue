@@ -15,10 +15,10 @@ const metrics = [
 ]
 
 const units = [
-  { city: '防禦', aether: '破盾者' },
-  { city: '反制', aether: '治療' },
+  { city: '防禦者', aether: '破盾者' },
+  { city: '反制專家', aether: '治療者' },
   { city: '特殊', aether: '弱點機制' },
-  { city: '連鎖', aether: '主力' }
+  { city: '連鎖協調', aether: '主力' }
 ]
 
 const loopSteps = [

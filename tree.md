@@ -9,8 +9,10 @@ Echoes-of-Aetheria/
 ├── OPTIMIZATION_LOG_TRIGGER.md
 ├── README.md
 ├── README_LOG_AUTOMATION.md
-├── package-lock.json
 ├── package.json
+├── tsconfig.json
+├── vite.config.js
+├── tree.md
 ├── scripts/
 │   ├── log-optimization.js
 │   ├── test-entry-duplicate.json
@@ -18,9 +20,7 @@ Echoes-of-Aetheria/
 │   ├── test-entry.json
 │   └── watch-log.js
 ├── public/
-│   ├── game-plan-demo.html
-│   ├── IndexBackground.png
-│   └── vite.svg
+│   └── game-plan-demo.html
 ├── src/
 │   ├── App.vue
 │   ├── main.js
@@ -28,14 +28,31 @@ Echoes-of-Aetheria/
 │   ├── vite-env.d.ts
 │   ├── assets/
 │   │   └── images/
-│   │       ├── Cute1.png
-│   │       ├── Cute2.png
-│   │       ├── Cute3.png
-│   │       └── IndexBackground.png
 │   ├── components/
 │   │   ├── Navbar.vue
-│   │   └── home/
-│   │       └── CharacterList.vue
+│   │   ├── home/
+│   │   │   └── CharacterList.vue
+│   │   ├── ui/
+│   │   │   ├── CharacterCard.vue
+│   │   │   ├── DetailList.vue
+│   │   │   ├── FeatureCard.vue
+│   │   │   ├── GlassCard.vue
+│   │   │   ├── InfoGrid.vue
+│   │   │   ├── SectionContent.vue
+│   │   │   ├── SectionHeading.vue
+│   │   │   ├── ToggleCard.vue
+│   │   │   └── WorldModeToggle.vue
+│   │   └── views/
+│   │       ├── CharacterSection.vue
+│   │       ├── FeatureList.vue
+│   │       └── WorldCardGrid.vue
+│   ├── composables/
+│   │   ├── useDimensionalSwitchData.ts
+│   │   ├── useDimensionSwitch.ts
+│   │   ├── useGameplanData.ts
+│   │   ├── useGameplayFeatures.ts
+│   │   ├── useHomeCharacters.ts
+│   │   └── useWorldCards.ts
 │   ├── router/
 │   │   └── index.ts
 │   ├── SSR/
@@ -48,6 +65,5 @@ Echoes-of-Aetheria/
 │       ├── Gameplay.vue
 │       ├── HomeView.vue
 │       └── TheWorldView.vue
-├── tsconfig.json
-└── vite.config.js
+└── node_modules/
 ```

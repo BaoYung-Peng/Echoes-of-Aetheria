@@ -95,13 +95,22 @@ const dimensionDetails = computed(() => {
   ];
 });
 
-const formation = [
-  { label: '前鋒', desc: '主攻單位，承擔破盾與輸出任務' },
-  { label: '重裝', desc: '坦克/防禦位，維持隊伍穩定' },
-  { label: '術師', desc: '範圍與控場，觸發地脈連鎖' },
-  { label: '輔助', desc: '治療/增益，支持 4+1 編成' },
-  { label: '偵查', desc: '遠端偵查與標記弱點' },
+// 定義維度職業對照資料
+const unitData = [
+  { label: '前鋒', city: '防禦者', aether: '破盾者' },
+  { label: '重裝', city: '反制專家', aether: '治療者' },
+  { label: '未知', city: '特殊', aether: '弱點機制' },
+  { label: '輔助', city: '連鎖協調', aether: '主力輸出' },
+  { label: '支援者', city: '事件觸發', aether: '弱點機制' }
 ];
+
+// 動態生成職業描述
+const formation = computed(() => {
+  return unitData.map(u => ({
+    label: u.label,
+    desc: dimensionMode.value === 'star' ? u.city : u.aether
+  }));
+});
 
 const goHome = () => {
   router.push('/');
