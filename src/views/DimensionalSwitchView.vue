@@ -6,8 +6,8 @@ const router = useRouter();
 const dimension = ref(24);
 
 // Strict color tokens from Agent.md
-const STAR_CITY = '#00FFC6'; // 都市青
-const ARCADIA = '#6B4CFF'; // 電光紫
+const STAR_CITY = '#00FFC6';
+const ARCADIA = '#6B4CFF';
 
 const dimensionLabel = computed(() => (dimension.value < 50 ? '星刻市' : '阿爾卡迪亞'));
 const sliderHint = computed(() =>
