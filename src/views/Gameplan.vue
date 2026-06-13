@@ -6,19 +6,44 @@ const worldMode = ref('city')
 
 // 資料定義
 const metrics = [
-  { val: '4+1', label: '戰陣系統' },
-  { val: '0 浮動', label: '固定裝備浮動數值' },
-  { val: '3+ 討伐', label: 'Boss 策略' },
-  { val: '雙重維度', label: '異界互動隱藏劇情' },
-  { val: '多樣化', label: '角色成長路線' },
-  { val: '每季更新', label: '長線版本'}
+  {
+    val: '雙重人格',
+    label: '同一角色，兩種命運'
+  },
+
+  {
+    val: '雙維度探索',
+    label: '現實與異界共享世界'
+  },
+
+  {
+    val: '人格切換',
+    label: '兩套技能樹自由轉換'
+  },
+
+  {
+    val: '4+1 戰陣',
+    label: '多重職能策略搭配'
+  },
+
+  {
+    val: '三種破局',
+    label: '每個 Boss 至少三種解法'
+  },
+
+  {
+    val: '社交住宅區',
+    label: '展示、經營、演唱會'
+  }
 ]
 
 const units = [
-  { city: '防禦者', aether: '破盾者' },
-  { city: '反制專家', aether: '治療者' },
-  { city: '特殊', aether: '弱點機制' },
-  { city: '連鎖協調', aether: '主力' }
+  { city: '防禦者', aether: '破盾者（破壞）' },
+  { city: '反制者', aether: '治療者（救贖）' },
+  { city: '支援者', aether: '控制者（支配）' },
+  { city: '指揮家', aether: '處刑者（處刑）' },
+  { city: '分析師', aether: '揭露者（弱點揭露）' },
+  { city: '執行者', aether: '狂戰士（毀滅）' }
 ]
 
 const loopSteps = [
@@ -31,9 +56,9 @@ const loopSteps = [
 ]
 
 const solutions = [
-  { title: '弱點連鎖', desc: '玩家透過鎖定特定部位找出弱點，賦予玩家副本內持有特殊效果。' },
-  { title: '場地機制', desc: '穿梭於現實與異界維度，透過能量引力引爆雙維度之共鳴，於不同維度間抉擇，考驗玩家們的戰術思維' },
-  { title: '職業應用', desc: '以守護、治療、弱點標記、主力、戰友支援等方式；每個角色皆有現實與異界兩維度的特殊運用' }
+  { title: '弱點連鎖', desc: '透過標記敵人或揭露弱點放大 Debuff，引爆全隊的連鎖支援反應。' },
+  { title: '場地機制', desc: '穿梭於現實與異界維度，重塑移動路徑並改寫場地屬性，考驗玩家的戰術抉擇。' },
+  { title: '人格應用', desc: '拒絕數值碾壓。配合六大人格原型進行信念與戰術切換，引導防守到粉碎的決策變革。' }
 ]
 </script>
 
@@ -53,7 +78,7 @@ const solutions = [
               </h1>
               <p class="text-body-1 text-grey-lighten-1 mb-6">
                 玩家作為「導標者」穿梭星刻市與阿爾卡迪亞，運用謀略設法破解裂隙 Boss。
-                企劃核心不是堆數值，而是讓固定規則形成可規劃的戰術解題。
+                企劃核心拒絕單純的數值堆疊，而是讓固定規則與維度切換形成可規劃的戰術解題。
               </p>
               <div class="d-flex gap-4 mb-8">
                 <v-btn color="primary" class="font-weight-black px-8">傷害測試[提供玩家模擬數值計算]</v-btn>
@@ -76,18 +101,18 @@ const solutions = [
                 <div class="d-flex justify-space-between align-center mb-4">
                   <span class="text-subtitle-1 font-weight-bold text-white">星刻裂隙作戰介面</span>
                   <v-btn-toggle v-model="worldMode" mandatory density="compact" class="mode-toggle">
-                    <v-btn value="city" class="text-caption btn-city">現實</v-btn>
-                    <v-btn value="aether" class="text-caption btn-aether">幻界</v-btn>
+                    <v-btn value="city" class="text-caption btn-city">現實 (City)</v-btn>
+                    <v-btn value="aether" class="text-caption btn-aether">幻界 (Aether)</v-btn>
                   </v-btn-toggle>
                 </div>
                 <v-row>
                   <v-col cols="12" md="6">
                     <v-card variant="outlined" class="pa-4 world-box" :class="worldMode">
                       <div class="text-subtitle-2 font-weight-black mb-1">
-                        {{ worldMode === 'city' ? '場景：現實地圖' : '場景：幻界地圖' }}
+                        {{ worldMode === 'city' ? '場景：星刻市 / 現實維度' : '場景：阿爾卡迪亞 / 異界維度' }}
                       </div>
                       <p class="text-caption">
-                        {{ worldMode === 'city' ? '現實維度顯示任務動線與資料封鎖區' : '異界維度顯示弱點節點與裂隙擴散方向' }}
+                        {{ worldMode === 'city' ? '現實維度：部署防禦戰線，維持隊伍站位與戰術空間。' : '異界維度：執行弱點粉碎與狂暴輸出，切換核心戰術。' }}
                       </p>
                     </v-card>
                   </v-col>
@@ -145,7 +170,7 @@ const solutions = [
               <h2 class="text-h3 font-weight-black mb-4">???</h2>
               <v-card class="boss-visual-card pa-6 d-flex flex-column align-center">
                 <v-avatar size="150" class="boss-core-ui mb-4">裂隙核心</v-avatar>
-                <p class="text-caption text-center text-grey">階段切換時(穿梭)將於兩個維度改寫弱點，迫使玩家選擇連鎖、反制、防守。</p>
+                <p class="text-caption text-center text-grey">階段切換與次元穿梭時，Boss 將同步於兩個維度改寫弱點，強制引導玩家切換信念與戰術機制，拒絕無腦換皮設計。</p>
               </v-card>
             </v-col>
             <v-col cols="12" md="7">
