@@ -46,16 +46,16 @@ const characters = ref<Record<string, Character>>({
     subtitle: "STREAMING HACKER (CYBER GLITCH)",
     rarity: "SSR 限定登場",
     world: "星刻市 / 現實維度",
-    role: "特殊",
+    role: "分析師",
     position: "數據破綻者",
-    elements: "異界屬性: 弱點機制 / 連鎖觸發",
+    elements: "異界屬性: 揭露者（弱點揭露）",
     quote: "「數據不會說謊，人卻會。讓我來解開這座城市的秘密。」",
     height: "154 cm",
     race: "人類",
     weapon: "虛擬音波鍵盤",
     cv: "悠木碧",
     desc: "擅長穿梭於星刻市資料雲塔與維度裂隙之間的破綻偵查者。她透過數據流標記弱點，讓隊伍能在 4+1 戰陣中引發精準連鎖。",
-    prompt: "masterpiece, best quality, 1girl, twin tails, pink and teal hair, cyberpunk clothing, cyber goggles, holographic screens, futuristic urban skyline, neon teal lighting, anime style, high detail.",
+    prompt: "",
     mechanics: [
       "弱點標記引發 4+1 連鎖",
       "現實維度數據滲透，強化下一次破盾",
@@ -81,14 +81,14 @@ const characters = ref<Record<string, Character>>({
       world: "星刻市 / 現實維度",
       role: "防禦者",
       position: "前排守護",
-      elements: "異界屬性: 破盾者 / 場地改寫",
+      elements: "異界屬性: 破盾者（破壞） / 場地改寫",
       quote: "「拜託~為什麼我要遇到這種倒楣事」",
       height: "165 cm",
       race: "人類",
       weapon: "冰晶汐刃",
       cv: "石川由依",
       desc: "現實是星芒科技活潑元氣的上班族，異界中則是守護防線的銀髮劍聖。她以冰晶汐刃在現實與幻界間劃出防線，重塑場地讓 4+1 隊伍在次元切換時保有戰術空間。",
-      prompt: "masterpiece, best quality, 1girl, silver hair, ice blue eyes, elegant white and royal blue battle dress, holding a glowing crystal greatsword embedded in cracked ice, snowy frozen castle background, anime style, high detail, sharp focus.",
+      prompt: "",
       mechanics: [
         "場地轉換時提供防守與路徑重塑",
         "在現實維度保持隊伍站位穩定",
@@ -112,16 +112,16 @@ const characters = ref<Record<string, Character>>({
     subtitle: "THE ETHEREAL GUIDE (Shepherd of Souls & Master of Illusion)",
     rarity: "SSR 限定登場",
     world: "星刻市 / 現實維度 (第七層灰塵)",
-    role: "反制專家",
+    role: "反制者",
     position: "後排輔助",
-    elements: "異界屬性: 治療者 / 增益提供者",
+    elements: "異界屬性: 治療者（救贖） / 增益提供者",
     quote: "「夢境與真實，只有一線之隔。看破虛幻，便是真實。旅人，你準備好在我的槍尖下，直面靈魂的倒影了嗎？」",
     height: "178 cm", // 依據高挑優雅的皇家學者剪影比例微調
     race: "純血妖精族 (Elf)",
     weapon: "星織之槍 (Star-Woven Spear)", // 同步設定集Verbatim
     cv: "能登麻美子",
     desc: "穿梭於夢境與星界之間的古老靈魂導師。她操控不穩定的次元與幻境力量，引導導標者透過其「稜鏡之瞳」洞悉敵方靈魂的弱點與共鳴。她的存在能完美維持隊伍在次元切換時的輔助節奏。",
-    prompt: "masterpiece, best quality, 1girl, elf scholar, long flowing blonde hair, glowing purple prismatic eyes, Star-Woven Spear, suspended floating weapon components, ethereal cosmic violet robes, translucent ether fabric, floating gold runes, dreamlike mist, rim lighting, anime style, high detail.",
+    prompt: "",
     mechanics: [
       "「夢境迷霧」引導異界隊伍能量流轉",
       "「稜鏡之瞳」降低敵方異界抗性並擴大靈魂弱點效果",
@@ -300,7 +300,7 @@ function getSkillIconClass(index: number): string {
 
             <v-card variant="outlined" class="card-glass p-5 rounded-2xl">
               <div class="d-flex justify-space-between align-center mb-3">
-                <span class="text-xs font-bold text-amber-500 tracking-wider">🌟 完美二次元藝術提示詞</span>
+                <span class="text-xs font-bold text-amber-500 tracking-wider">異界版本</span>
                 <span class="text-[10px] text-purple-400 bg-purple-950/40 px-2 py-0.5 rounded-md">無暇版</span>
               </div>
               <div class="bg-black/60 p-3 rounded-lg border border-slate-800/80">

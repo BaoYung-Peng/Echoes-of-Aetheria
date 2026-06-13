@@ -22,19 +22,21 @@ export interface StrategySolution {
 
 export function useGameplanData() {
   const metrics: CoreMetric[] = [
-    { val: '4+1', label: '戰陣系統' },
-    { val: '0 浮動', label: '固定裝備浮動數值' },
-    { val: '3+ 討伐', label: 'Boss 策略' },
-    { val: '雙重維度', label: '異界互動隱藏劇情' },
-    { val: '多樣化', label: '角色成長路線' },
-    { val: '每季更新', label: '長線版本' },
+    { val: '雙重人格', label: '同一角色，兩種命運' },
+    { val: '雙維度探索', label: '現實與異界共享世界' },
+    { val: '人格切換', label: '現實與異界共享世界' },
+    { val: '4+1 戰陣', label: '多重職能策略搭配' },
+    { val: '三種破局', label: '每個 Boss 至少三種解法' },
+    { val: '社交住宅區', label: '展示、經營、演唱會' },
   ];
 
   const units: UnitPair[] = [
-    { city: '防禦', aether: '破盾者' },
-    { city: '反制', aether: '治療' },
-    { city: '特殊', aether: '弱點機制' },
-    { city: '連鎖', aether: '主力' },
+    { city: '防禦者', aether: '破盾者（破壞）' },
+    { city: '反制者', aether: '治療者（救贖）' },
+    { city: '支援者', aether: '控制者（支配）' },
+    { city: '指揮家', aether: '處刑者（處刑）' },
+    { city: '分析師', aether: '揭露者（弱點揭露）' },
+    { city: '執行者', aether: '狂戰士（毀滅）' },
   ];
 
   const loopSteps: LoopStep[] = [

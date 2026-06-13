@@ -97,11 +97,12 @@ const dimensionDetails = computed(() => {
 
 // 定義維度職業對照資料
 const unitData = [
-  { label: '前鋒', city: '防禦者', aether: '破盾者' },
-  { label: '重裝', city: '反制專家', aether: '治療者' },
-  { label: '未知', city: '特殊', aether: '弱點機制' },
-  { label: '輔助', city: '連鎖協調', aether: '主力輸出' },
-  { label: '支援者', city: '事件觸發', aether: '弱點機制' }
+  { label: '守護', city: '防禦者', aether: '破盾者（破壞）' },
+  { label: '意志', city: '反制者', aether: '治療者（救贖）' },
+  { label: '協調', city: '支援者', aether: '控制者（支配）' },
+  { label: '領導', city: '指揮家', aether: '處刑者（處刑）' },
+  { label: '洞察', city: '分析師', aether: '揭露者（弱點揭露）' },
+  { label: '執念', city: '執行者', aether: '狂戰士（毀滅）' },
 ];
 
 // 動態生成職業描述
