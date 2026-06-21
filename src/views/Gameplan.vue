@@ -196,7 +196,7 @@ const solutions = [
     </v-main>
 
     <v-dialog v-model="isSimulatorOpen" max-width="800">
-      <v-card class="pa-4">
+      <v-card class="bg-transparent pa-0" elevation="0">
         <Simulation />
       </v-card>
     </v-dialog>
