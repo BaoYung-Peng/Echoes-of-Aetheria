@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import Simulation from './Simulation.vue';
 
 // 狀態管理
 const worldMode = ref('city')
+const isSimulatorOpen = ref(false);
 
 // 資料定義
 const metrics = [
@@ -81,7 +83,9 @@ const solutions = [
                 企劃核心拒絕單純的數值堆疊，而是讓固定規則與維度切換形成可規劃的戰術解題。
               </p>
               <div class="d-flex gap-4 mb-8">
-                <v-btn color="primary" class="font-weight-black px-8">傷害測試[提供玩家模擬數值計算]</v-btn>
+                <v-btn color="primary" class="font-weight-black px-8" @click="isSimulatorOpen = true">
+                  戰術循環 ICD 模擬器 (Prototype)
+                </v-btn>
                 <v-btn variant="outlined" class="ml-4 px-8">戰術確認</v-btn>
               </div>
               <!-- 核心指標 -->
@@ -119,20 +123,20 @@ const solutions = [
                   <v-col cols="12" md="6">
                     <v-card variant="outlined" class="pa-4">
                       <div class="text-subtitle-2 font-weight-black mb-2 text-white">4+1 戰陣</div>
-                        <v-row dense>
-                          <v-col cols="6" v-for="u in units" :key="u.city">
-                            <v-card color="rgba(255,255,255,0.05)" class="pa-2" flat>
-                              <div class="text-secondary text-caption font-weight-bold">
-                                {{ u[worldMode] }}
-                              </div>
-                            </v-card>
-                          </v-col>
-                          <v-col cols="12">
-                            <v-card color="rgba(255, 207, 90, 0.1)" class="pa-2" border="warning" flat>
-                              <div class="text-warning text-caption font-weight-bold">戰友支援：[Leader Skills Execute]</div>
-                            </v-card>
-                          </v-col>
-                        </v-row>
+                      <v-row dense>
+                        <v-col cols="6" v-for="u in units" :key="u.city">
+                          <v-card color="rgba(255,255,255,0.05)" class="pa-2" flat>
+                            <div class="text-secondary text-caption font-weight-bold">
+                              {{ u[worldMode] }}
+                            </div>
+                          </v-card>
+                        </v-col>
+                        <v-col cols="12">
+                          <v-card color="rgba(255, 207, 90, 0.1)" class="pa-2" border="warning" flat>
+                            <div class="text-warning text-caption font-weight-bold">戰友支援：[Leader Skills Execute]</div>
+                          </v-card>
+                        </v-col>
+                      </v-row>
                     </v-card>
                   </v-col>
                 </v-row>
@@ -152,7 +156,8 @@ const solutions = [
           <v-row>
             <v-col cols="12" sm="6" md="4" v-for="(step, i) in loopSteps" :key="i">
               <v-card class="glass-card pa-6 h-100 position-relative overflow-hidden">
-                <div class="text-h2 position-absolute" style="right: -10px; bottom: -10px; opacity: 0.05; font-weight: 900;">0{{i+1}}</div>
+                <div class="text-h2 position-absolute"
+                  style="right: -10px; bottom: -10px; opacity: 0.05; font-weight: 900;">0{{ i + 1 }}</div>
                 <div class="text-h6 text-secondary mb-2 font-weight-black">{{ step.title }}</div>
                 <p class="text-body-2 text-grey">{{ step.desc }}</p>
               </v-card>
@@ -175,14 +180,9 @@ const solutions = [
             </v-col>
             <v-col cols="12" md="7">
               <div class="d-flex flex-column gap-4">
-                <v-card 
-                  v-for="(sol, i) in solutions" 
-                  :key="i" 
-                  class="glass-card pa-6" 
-                  border="s-xl secondary"
-                >
+                <v-card v-for="(sol, i) in solutions" :key="i" class="glass-card pa-6" border="s-xl secondary">
                   <div class="d-flex align-center mb-3">
-                    <v-badge :content="i+1" color="secondary" inline text-color="black"></v-badge>
+                    <v-badge :content="i + 1" color="secondary" inline text-color="black"></v-badge>
                     <span class="text-h6 ml-3 font-weight-black text-white">{{ sol.title }}</span>
                   </div>
                   <p class="text-body-1 text-grey-lighten-4 mb-0" style="line-height: 1.6;">{{ sol.desc }}</p>
@@ -192,10 +192,16 @@ const solutions = [
           </v-row>
         </v-container>
       </section>
+      <v-divider class="my-10" color="secondary" thickness="2"></v-divider>
     </v-main>
+
+    <v-dialog v-model="isSimulatorOpen" max-width="800">
+      <v-card class="pa-4">
+        <Simulation />
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
-
 
 <style scoped>
 /* 1. 核心配色與背景 (Visual Style Guide) [1] */
@@ -241,29 +247,37 @@ const solutions = [
   transition: all 0.4s ease !important;
   border-width: 2px !important;
   /* 強制背景色以防透明度導致視覺錯覺 */
-  background: rgba(10, 15, 25, 0.8) !important; 
+  background: rgba(10, 15, 25, 0.8) !important;
 }
 
 /* 星刻市模式 */
 .world-box.city {
   border-color: #00FFC6 !important;
 }
+
 .world-box.city .text-subtitle-2 {
-  color: #00FFC6 !important; /* 強制標題為螢光綠 */
+  color: #00FFC6 !important;
+  /* 強制標題為螢光綠 */
 }
+
 .world-box.city .text-caption {
-  color: #ffffff !important; /* 強制描述為白色 */
+  color: #ffffff !important;
+  /* 強制描述為白色 */
 }
 
 /* 阿爾卡迪亞模式 */
 .world-box.aether {
   border-color: #FF00FF !important;
 }
+
 .world-box.aether .text-subtitle-2 {
-  color: #FF00FF !important; /* 強制標題為螢光紫 */
+  color: #FF00FF !important;
+  /* 強制標題為螢光紫 */
 }
+
 .world-box.aether .text-caption {
-  color: #ffffff !important; /* 強制描述為白色 */
+  color: #ffffff !important;
+  /* 強制描述為白色 */
 }
 
 .boss-visual-card {
@@ -279,5 +293,7 @@ const solutions = [
   color: #ffd7e5;
 }
 
-.gap-4 { gap: 1rem; }
+.gap-4 {
+  gap: 1rem;
+}
 </style>
