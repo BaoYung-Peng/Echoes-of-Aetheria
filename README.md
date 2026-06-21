@@ -67,7 +67,7 @@
 > *「優秀的企劃不應只停留在設計，更應具備確保設計落實的能力。自動化監控系統使我能主動偵測邏輯偏差，讓專案開發始終保持透明。」*
 
 ### 系統運作流程圖
-<img src="assets/devopsWorkflow.png" width="700" alt="自動化開發監控流程圖">
+<img src="src/assets/images/devopsWorkflow.png" width="700" alt="自動化開發監控流程圖">
 *圖：自動化開發監控流程運作示意，整合了 CI/CD 自動化與即時狀態回饋。*
 
 ### 技術實作軌跡
