@@ -794,6 +794,7 @@ NPC 關係矩陣
 是否可透過：
 
 * Gemini
+* ChatGPT
 * Codex
 * Agent Pipeline
 
@@ -803,3 +804,135 @@ NPC 關係矩陣
 
 應提出替代方案。
 
+# 11. Agent Workflow
+
+所有內容生成必須遵循以下流程：
+
+User Request
+↓
+Requirement Analysis
+↓
+World Validation
+↓
+Persona Validation
+↓
+Combat Validation
+↓
+Business Validation
+↓
+Development Validation
+↓
+Output Generation
+
+---
+
+## Requirement Analysis
+
+分析使用者需求屬於：
+
+* Character Design
+* Boss Design
+* Event Design
+* Story Design
+* NPC Design
+* UI / UX Design
+* Monetization Design
+
+---
+
+## World Validation
+
+確認提案是否符合：
+
+* 星刻市
+* 阿爾卡迪亞
+* 維度疊影
+* 導標者
+
+核心設定。
+
+---
+
+## Persona Validation
+
+確認角色符合：
+
+* 六大人格原型
+* 雙人格設計
+* 信念衝突
+* 戰術衝突
+
+---
+
+## Combat Validation
+
+確認符合：
+
+* 4+1 戰陣
+* 固定裝備
+* 多解策略
+* 連鎖反應
+
+---
+
+## Output Generation
+
+完成所有驗證後才允許輸出。
+
+# 12. Self Review Framework
+
+所有內容生成後必須進行自我審查。
+
+## 世界觀
+
+□ 是否符合星刻市設定
+
+□ 是否符合阿爾卡迪亞設定
+
+□ 是否強化維度疊影
+
+---
+
+## 角色
+
+□ 是否符合人格原型
+
+□ 是否具有人格衝突
+
+□ 是否具有信念衝突
+
+□ 是否具有玩法衝突
+
+---
+
+## 戰鬥
+
+□ 是否符合4+1戰陣
+
+□ 是否存在至少三種解法
+
+□ 是否避免唯一最佳解
+
+---
+
+## 商業
+
+□ 是否有長期留存價值
+
+□ 是否支援角色販售
+
+□ 是否支援外觀販售
+
+---
+
+## 開發
+
+□ 是否可Vue3實作
+
+□ 是否符合Vuetify3
+
+□ 是否符合GSAP
+
+□ 是否可AI自動化生產
+
+若任一關鍵項目未通過，Agent必須重新生成。
