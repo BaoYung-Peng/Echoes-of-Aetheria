@@ -21,6 +21,7 @@ const navigateToCharacter = (path: string) => {
 
     <div class="character-grid">
       <CharacterCard
+        class="tracking-card"
         v-for="character in characters"
         :key="character.name"
         :character="character"

@@ -5,7 +5,7 @@ import TheWorldView from '../views/TheWorldView.vue';
 import DimensionalSwitchView from '../views/DimensionalSwitchView.vue';
 import Gameplan from '../views/Gameplan.vue';
 import Role from '../SSR/Role.vue'; 
-// import Resume from '../views/Resume.vue';
+import Resume from '../views/Resume.vue';
 import Simulation from '../views/Simulation.vue';
 
 const router = createRouter({
@@ -18,7 +18,8 @@ const router = createRouter({
     { path: '/gameplan', name: 'Gameplan', component: Gameplan },
     { path: '/ssr/role', name: 'Role', component: Role },
     { path: '/simulation', name:'Simulation', component: Simulation },
-    // { path: '/Resume', name: 'Resume', component: Resume },
+    { path: '/resume', name: 'Resume', component: Resume },
+    { path: '/Resume', redirect: '/resume' },
   ]
 });
 

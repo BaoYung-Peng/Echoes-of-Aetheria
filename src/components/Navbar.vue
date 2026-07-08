@@ -7,6 +7,7 @@
     <v-btn variant="text" to="/theWorldView">世界觀</v-btn>
     <v-btn variant="text" to="/dimension-switch">次元切換</v-btn>
     <v-btn variant="text" to="/gameplan">測試演示</v-btn>
+    <v-btn variant="text" to="/resume">履歷</v-btn>
     
   </v-app-bar>
 </template>
