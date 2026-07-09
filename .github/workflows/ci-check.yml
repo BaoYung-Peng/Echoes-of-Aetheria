@@ -2,35 +2,36 @@ name: Game CI Check
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v5
+
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
-          
+          node-version: 22
+          cache: npm
+
       - name: Install Dependencies
-        run: npm install
-        
+        run: npm ci
+
       - name: Build Project
         run: npm run build
 
-      # --- Add Slack notify ---
       - name: Slack Notification
         if: always()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_CHANNEL: '社交'
+          SLACK_CHANNEL: 社交
           SLACK_COLOR: ${{ job.status }}
-          SLACK_TITLE: 'Game CI Build Status'
-          SLACK_MESSAGE: '建置結果: ${{ job.status }}'
+          SLACK_TITLE: Game CI Build Status
+          SLACK_MESSAGE: 建置結果：${{ job.status }}
