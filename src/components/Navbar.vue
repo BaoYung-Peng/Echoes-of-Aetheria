@@ -27,11 +27,14 @@ const isActive = (path: string) => activePath.value === path
 <template>
   <div>
     <v-app-bar flat class="glass-nav" color="transparent" height="76">
-      <v-app-bar-nav-icon
+      <v-btn
         v-if="mobile"
+        icon
         class="nav-hamburger"
         @click="drawer = !drawer"
-      />
+      >
+        <v-icon size="24">mdi-menu</v-icon>
+      </v-btn>
 
       <div class="brand-group">
         <span class="brand-mark"></span>
@@ -151,7 +154,19 @@ const isActive = (path: string) => activePath.value === path
 .nav-hamburger {
   margin-left: 12px;
   margin-right: 8px;
-  color: #ffffff;
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(0, 255, 198, 0.08);
+  border: 1px solid rgba(0, 255, 198, 0.2);
+  box-shadow: 0 0 18px rgba(0, 255, 198, 0.12);
+}
+
+.nav-hamburger .v-icon {
+  color: #00ffc6;
 }
 
 .mobile-drawer {
