@@ -7,11 +7,12 @@
       <div v-else class="entry-screen">
         <div class="entry-card">
           <div class="entry-title">Echoes of Aetheria</div>
-          <div class="entry-subtitle">🎵 Special Thanks</div>
+          <div class="entry-subtitle">Music Special Thanks</div>
 
           <div class="entry-copy" v-if="language === 'en'">
             <p>
-              To create a more immersive, game-inspired portfolio experience, this website features background music generously shared by lNPLUSMUSIC (Andrii).
+              To create a more immersive, game-inspired portfolio experience, this website features background music
+              generously shared by lNPLUSMUSIC (Andrii).
             </p>
             <p>
               Special thanks to Andrii for making high-quality music freely available to creators around the world.
@@ -69,7 +70,7 @@ import { ref, onMounted } from 'vue';
 import Navbar from './components/Navbar.vue';
 import { useAudioManager } from './composables/useAudioManager';
 
-const { play, stop, setCategoryVolume, setEnabled } = useAudioManager();
+const { playBgm, stop, setCategoryVolume, setEnabled } = useAudioManager();
 const showPortfolio = ref(false);
 const enableBgm = ref(true);
 const language = ref('en');
@@ -77,17 +78,18 @@ const language = ref('en');
 const bgmPath = '/audio/bgm/lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3';
 
 const enterPortfolio = () => {
-  showPortfolio.value = true;
 
+  showPortfolio.value = true
+  setEnabled(enableBgm.value)
   if (enableBgm.value) {
-    setEnabled(true);
-    setCategoryVolume('bgm', 0.5);
-    play('bgm', bgmPath, { loop: true });
-  } else {
-    setEnabled(false);
-    stop('bgm');
+
+    playBgm(
+      'bgm',
+      bgmPath,
+      { loop: true }
+    )
   }
-};
+}
 
 onMounted(() => {
   setEnabled(false);

@@ -1,172 +1,124 @@
-﻿<script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useDisplay } from 'vuetify'
-import { useRoute } from 'vue-router'
-import { useAudioManager } from '../composables/useAudioManager'
+﻿  <script setup lang="ts">
+  import { ref, computed, onMounted } from 'vue'
+  import { useDisplay } from 'vuetify'
+  import { useRoute } from 'vue-router'
+  import { useAudioManager } from '../composables/useAudioManager'
 
-const { mobile } = useDisplay()
-const drawer = ref(false)
-const route = useRoute()
-const { play, stop, setCategoryVolume } = useAudioManager()
-const showVolumeMenu = ref(false)
-const bgmEnabled = ref(false)
-const volume = ref(0.5)
+  const { mobile } = useDisplay()
+  const drawer = ref(false)
+  const route = useRoute()
+  const {
+    enabled,
+    playBgm,
+    setEnabled,
+    setCategoryVolume,
+    categoryVolumes
+  } = useAudioManager()
+  const showVolumeMenu = ref(false)
+  const volume = ref(0.5)
+  const bgmFileName = 'lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3'
+  const bgmPath = `/audio/bgm/${encodeURIComponent(bgmFileName)}`
 
-const bgmFileName = 'lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3'
-const bgmPath = `/audio/bgm/${encodeURIComponent(bgmFileName)}`
+  const navItems = [
+    { title: '首頁', to: '/' },
+    { title: '玩法介紹', to: '/gameplay' },
+    { title: '世界觀', to: '/theWorldView' },
+    { title: '次元切換', to: '/dimension-switch' },
+    { title: '測試演示', to: '/gameplan' },
+    { title: '履歷', to: '/resume' },
+  ]
 
-const navItems = [
-  { title: '首頁', to: '/' },
-  { title: '玩法介紹', to: '/gameplay' },
-  { title: '世界觀', to: '/theWorldView' },
-  { title: '次元切換', to: '/dimension-switch' },
-  { title: '測試演示', to: '/gameplan' },
-  { title: '履歷', to: '/resume' },
-]
-
-const closeDrawer = () => {
-  drawer.value = false
-}
-
-const toggleBgm = () => {
-  if (bgmEnabled.value) {
-    stop('bgm')
-    bgmEnabled.value = false
-    return
+  const closeDrawer = () => {
+    drawer.value = false
   }
 
-  setCategoryVolume('bgm', volume.value)
-  play('bgm', bgmPath, { loop: true })
-  bgmEnabled.value = true
-}
+  const toggleBgm = () => {
+    if (enabled.value) {
+      setEnabled(false)
+      return
+    }
+    setEnabled(true)
+    setCategoryVolume('bgm', volume.value)
+    playBgm()
+  }
 
-const updateVolume = (value: number) => {
-  volume.value = value
-  setCategoryVolume('bgm', value)
-}
+  const updateVolume = (value: number) => {
+    volume.value = value
+    setCategoryVolume('bgm', value)
+  }
 
-onMounted(() => {
-  volume.value = 0.5
-  setCategoryVolume('bgm', 0.5)
-  play('bgm', bgmPath, { loop: true })
-  bgmEnabled.value = true
-})
+  onMounted(() => {
+    volume.value = categoryVolumes.value.bgm
+  })
 
-const activePath = computed(() => route.path)
-const isActive = (path: string) => activePath.value === path
+  const activePath = computed(() => route.path)
+  const isActive = (path: string) => activePath.value === path
 </script>
 
-<template>
-  <div>
-    <v-app-bar flat class="glass-nav" color="transparent" height="76">
-      <v-btn
-        v-if="mobile"
-        icon
-        class="nav-hamburger"
-        @click="drawer = !drawer"
-      >
-        <v-icon size="24">mdi-menu</v-icon>
-      </v-btn>
+  <template>
+    <div>
+      <v-app-bar flat class="glass-nav" color="transparent" height="76">
+        <v-btn v-if="mobile" icon class="nav-hamburger" @click="drawer = !drawer">
+          <v-icon size="24">mdi-menu</v-icon>
+        </v-btn>
 
-      <div class="brand-group">
-        <span class="brand-mark"></span>
-        <div class="brand-text">
-          <div class="brand-title">Echoes of Aetheria</div>
-          <div class="brand-subtitle">Aetheria Vanguard</div>
+        <div class="brand-group">
+          <span class="brand-mark"></span>
+          <div class="brand-text">
+            <div class="brand-title">Echoes of Aetheria</div>
+            <div class="brand-subtitle">Aetheria Vanguard</div>
+          </div>
         </div>
-      </div>
 
-      <v-spacer />
+        <v-spacer />
 
-      <v-menu
-        v-model="showVolumeMenu"
-        :close-on-content-click="false"
-        location="bottom end"
-        offset="8"
-      >
-        <template #activator="{ props }">
-          <v-btn
-            v-bind="props"
-            icon
-            class="audio-toggle-btn"
-            :color="bgmEnabled ? '#00ffc6' : 'transparent'"
-            variant="text"
-            @click="showVolumeMenu = !showVolumeMenu"
-          >
-            <v-icon size="22">{{ bgmEnabled ? 'mdi-volume-high' : 'mdi-volume-off' }}</v-icon>
+        <v-menu v-model="showVolumeMenu" :close-on-content-click="false" location="bottom end" offset="8">
+          <template #activator="{ props }">
+            <v-btn v-bind="props" icon class="audio-toggle-btn" :color="enabled ? '#00ffc6' : 'transparent'"
+              variant="text" @click="showVolumeMenu = !showVolumeMenu">
+              <v-icon size="22">{{ enabled ? 'mdi-volume-high' : 'mdi-volume-off' }}</v-icon>
+            </v-btn>
+          </template>
+
+          <div class="audio-panel">
+            <div class="audio-panel-header">
+              <span class="audio-panel-title">背景音樂</span>
+              <span class="audio-panel-value">{{ Math.round(volume * 100) }}%</span>
+            </div>
+
+            <v-slider v-model="volume" class="audio-volume-slider" min="0" max="1" step="0.01" hide-details
+              density="compact" @update:model-value="updateVolume" />
+
+            <div class="audio-panel-actions">
+              <v-btn size="small" variant="text" class="audio-panel-action" @click="toggleBgm">
+                {{ enabled ? '靜音' : '播放' }}
+              </v-btn>
+            </div>
+          </div>
+        </v-menu>
+
+        <template v-if="!mobile">
+          <v-btn v-for="item in navItems" :key="item.to" variant="text" :to="item.to" class="desktop-nav-btn"
+            :class="{ 'active-link': isActive(item.to) }">
+            {{ item.title }}
           </v-btn>
         </template>
+      </v-app-bar>
 
-        <div class="audio-panel">
-          <div class="audio-panel-header">
-            <span class="audio-panel-title">背景音樂</span>
-            <span class="audio-panel-value">{{ Math.round(volume * 100) }}%</span>
-          </div>
-
-          <v-slider
-            v-model="volume"
-            class="audio-volume-slider"
-            min="0"
-            max="1"
-            step="0.01"
-            hide-details
-            density="compact"
-            @update:model-value="updateVolume"
-          />
-
-          <div class="audio-panel-actions">
-            <v-btn
-              size="small"
-              variant="text"
-              class="audio-panel-action"
-              @click="toggleBgm"
-            >
-              {{ bgmEnabled ? '靜音' : '播放' }}
-            </v-btn>
-          </div>
+      <v-navigation-drawer v-model="drawer" temporary location="left" class="mobile-drawer" width="280">
+        <div class="drawer-header">
+          <div class="drawer-title">主選單</div>
+          <div class="drawer-subtitle">探索次元，直達核心</div>
         </div>
-      </v-menu>
-
-      <template v-if="!mobile">
-        <v-btn
-          v-for="item in navItems"
-          :key="item.to"
-          variant="text"
-          :to="item.to"
-          class="desktop-nav-btn"
-          :class="{ 'active-link': isActive(item.to) }"
-        >
-          {{ item.title }}
-        </v-btn>
-      </template>
-    </v-app-bar>
-
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      location="left"
-      class="mobile-drawer"
-      width="280"
-    >
-      <div class="drawer-header">
-        <div class="drawer-title">主選單</div>
-        <div class="drawer-subtitle">探索次元，直達核心</div>
-      </div>
-      <v-list density="comfortable" nav>
-        <v-list-item
-          v-for="item in navItems"
-          :key="item.to"
-          :to="item.to"
-          class="mobile-nav-item"
-          :class="{ 'active-link': isActive(item.to) }"
-          @click="closeDrawer"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-  </div>
-</template>
+        <v-list density="comfortable" nav>
+          <v-list-item v-for="item in navItems" :key="item.to" :to="item.to" class="mobile-nav-item"
+            :class="{ 'active-link': isActive(item.to) }" @click="closeDrawer">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+    </div>
+  </template>
 
 <style scoped>
 .glass-nav {
