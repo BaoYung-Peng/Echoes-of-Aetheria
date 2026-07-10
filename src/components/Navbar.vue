@@ -1,11 +1,19 @@
 ﻿<script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useRoute } from 'vue-router'
+import { useAudioManager } from '../composables/useAudioManager'
 
 const { mobile } = useDisplay()
 const drawer = ref(false)
 const route = useRoute()
+const { play, stop, setCategoryVolume } = useAudioManager()
+const showVolumeMenu = ref(false)
+const bgmEnabled = ref(false)
+const volume = ref(0.5)
+
+const bgmFileName = 'lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3'
+const bgmPath = `/audio/bgm/${encodeURIComponent(bgmFileName)}`
 
 const navItems = [
   { title: '首頁', to: '/' },
@@ -19,6 +27,30 @@ const navItems = [
 const closeDrawer = () => {
   drawer.value = false
 }
+
+const toggleBgm = () => {
+  if (bgmEnabled.value) {
+    stop('bgm')
+    bgmEnabled.value = false
+    return
+  }
+
+  setCategoryVolume('bgm', volume.value)
+  play('bgm', bgmPath, { loop: true })
+  bgmEnabled.value = true
+}
+
+const updateVolume = (value: number) => {
+  volume.value = value
+  setCategoryVolume('bgm', value)
+}
+
+onMounted(() => {
+  volume.value = 0.5
+  setCategoryVolume('bgm', 0.5)
+  play('bgm', bgmPath, { loop: true })
+  bgmEnabled.value = true
+})
 
 const activePath = computed(() => route.path)
 const isActive = (path: string) => activePath.value === path
@@ -45,6 +77,55 @@ const isActive = (path: string) => activePath.value === path
       </div>
 
       <v-spacer />
+
+      <v-menu
+        v-model="showVolumeMenu"
+        :close-on-content-click="false"
+        location="bottom end"
+        offset="8"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            v-bind="props"
+            icon
+            class="audio-toggle-btn"
+            :color="bgmEnabled ? '#00ffc6' : 'transparent'"
+            variant="text"
+            @click="showVolumeMenu = !showVolumeMenu"
+          >
+            <v-icon size="22">{{ bgmEnabled ? 'mdi-volume-high' : 'mdi-volume-off' }}</v-icon>
+          </v-btn>
+        </template>
+
+        <div class="audio-panel">
+          <div class="audio-panel-header">
+            <span class="audio-panel-title">背景音樂</span>
+            <span class="audio-panel-value">{{ Math.round(volume * 100) }}%</span>
+          </div>
+
+          <v-slider
+            v-model="volume"
+            class="audio-volume-slider"
+            min="0"
+            max="1"
+            step="0.01"
+            hide-details
+            density="compact"
+            @update:model-value="updateVolume"
+          />
+
+          <div class="audio-panel-actions">
+            <v-btn
+              size="small"
+              variant="text"
+              class="audio-panel-action"
+              @click="toggleBgm"
+            >
+              {{ bgmEnabled ? '靜音' : '播放' }}
+            </v-btn>
+          </div>
+        </div>
+      </v-menu>
 
       <template v-if="!mobile">
         <v-btn
@@ -166,6 +247,64 @@ const isActive = (path: string) => activePath.value === path
 }
 
 .nav-hamburger .v-icon {
+  color: #00ffc6;
+}
+
+.audio-toggle-btn {
+  margin-right: 8px;
+  border-radius: 999px;
+  background: rgba(0, 255, 198, 0.08);
+  border: 1px solid rgba(0, 255, 198, 0.2);
+}
+
+.audio-toggle-btn .v-icon {
+  color: #00ffc6;
+}
+
+.audio-panel {
+  width: 220px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(6, 10, 24, 0.92);
+  border: 1px solid rgba(0, 255, 198, 0.2);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.audio-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #f3f6ff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.audio-panel-value {
+  color: #00ffc6;
+  font-size: 0.9rem;
+}
+
+.audio-volume-slider {
+  color: #00ffc6;
+}
+
+.audio-volume-slider :deep(.v-slider-thumb) {
+  color: #00ffc6;
+}
+
+.audio-volume-slider :deep(.v-slider-track__fill) {
+  background: linear-gradient(90deg, #00ffc6, #7b7dff);
+}
+
+.audio-panel-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.audio-panel-action {
   color: #00ffc6;
 }
 
