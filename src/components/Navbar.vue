@@ -1,5 +1,5 @@
 ﻿  <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed } from 'vue'
   import { useDisplay } from 'vuetify'
   import { useRoute } from 'vue-router'
   import { useAudioManager } from '../composables/useAudioManager'
@@ -14,10 +14,16 @@
     setCategoryVolume,
     categoryVolumes
   } = useAudioManager()
+
   const showVolumeMenu = ref(false)
-  const volume = ref(0.5)
-  const bgmFileName = 'lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3'
-  const bgmPath = `/audio/bgm/${encodeURIComponent(bgmFileName)}`
+  const volume = computed({
+    get() {
+      return categoryVolumes.value.bgm
+    },
+    set(value: number) {
+      setCategoryVolume('bgm', value)
+    }
+  })
 
   const navItems = [
     { title: '首頁', to: '/' },
@@ -35,21 +41,11 @@
   const toggleBgm = () => {
     if (enabled.value) {
       setEnabled(false)
-      return
+    } else {
+      setEnabled(true)
+      playBgm()
     }
-    setEnabled(true)
-    setCategoryVolume('bgm', volume.value)
-    playBgm()
   }
-
-  const updateVolume = (value: number) => {
-    volume.value = value
-    setCategoryVolume('bgm', value)
-  }
-
-  onMounted(() => {
-    volume.value = categoryVolumes.value.bgm
-  })
 
   const activePath = computed(() => route.path)
   const isActive = (path: string) => activePath.value === path
@@ -72,11 +68,13 @@
 
         <v-spacer />
 
-        <v-menu v-model="showVolumeMenu" :close-on-content-click="false" location="bottom end" offset="8">
+        <v-menu v-model="showVolumeMenu" :close-on-content-click="false" location="bottom end" offset="12"
+          transition="scale-transition">
           <template #activator="{ props }">
-            <v-btn v-bind="props" icon class="audio-toggle-btn" :color="enabled ? '#00ffc6' : 'transparent'"
-              variant="text" @click="showVolumeMenu = !showVolumeMenu">
-              <v-icon size="22">{{ enabled ? 'mdi-volume-high' : 'mdi-volume-off' }}</v-icon>
+            <v-btn v-bind="props" icon class="audio-toggle-btn" variant="text">
+              <v-icon size="22">
+                {{ enabled ? "mdi-volume-high" : "mdi-volume-off" }}
+              </v-icon>
             </v-btn>
           </template>
 
@@ -87,7 +85,7 @@
             </div>
 
             <v-slider v-model="volume" class="audio-volume-slider" min="0" max="1" step="0.01" hide-details
-              density="compact" @update:model-value="updateVolume" />
+              density="compact" />
 
             <div class="audio-panel-actions">
               <v-btn size="small" variant="text" class="audio-panel-action" @click="toggleBgm">

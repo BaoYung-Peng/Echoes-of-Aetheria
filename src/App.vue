@@ -1,3 +1,30 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import Navbar from './components/Navbar.vue';
+import { useAudioManager } from './composables/useAudioManager';
+
+const { playBgm, stop, setCategoryVolume, setEnabled } = useAudioManager();
+const showPortfolio = ref(false);
+const enableBgm = ref(true);
+const language = ref('en');
+
+const enterPortfolio = () => {
+  showPortfolio.value = true
+
+  setEnabled(enableBgm.value)
+
+  if (enableBgm.value) {
+    setCategoryVolume('bgm', 0.5)
+    playBgm()
+  }
+}
+
+onMounted(() => {
+  setEnabled(false);
+  stop('bgm');
+});
+</script>
+
 <template>
   <v-app class="bg-black">
     <Navbar v-if="showPortfolio" />
@@ -64,38 +91,6 @@
     </v-main>
   </v-app>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import Navbar from './components/Navbar.vue';
-import { useAudioManager } from './composables/useAudioManager';
-
-const { playBgm, stop, setCategoryVolume, setEnabled } = useAudioManager();
-const showPortfolio = ref(false);
-const enableBgm = ref(true);
-const language = ref('en');
-
-const bgmPath = '/audio/bgm/lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3';
-
-const enterPortfolio = () => {
-
-  showPortfolio.value = true
-  setEnabled(enableBgm.value)
-  if (enableBgm.value) {
-
-    playBgm(
-      'bgm',
-      bgmPath,
-      { loop: true }
-    )
-  }
-}
-
-onMounted(() => {
-  setEnabled(false);
-  stop('bgm');
-});
-</script>
 
 <style scoped>
 .bg-black {

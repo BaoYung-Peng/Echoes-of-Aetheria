@@ -28,18 +28,14 @@ export const DEFAULT_CATEGORY_VOLUMES: Record<AudioCategory, number> = {
 //========================
 // BGM Resource
 //========================
-
 const DEFAULT_BGM =
     '/audio/bgm/lnplusmusic-cyberpunk-futuristic-city-music-323171.mp3'
 
 //========================
 // Singleton State
 //========================
-
 const enabled = ref(false)
-
 const masterVolume = ref(0.7)
-
 const categoryVolumes = ref<Record<AudioCategory, number>>({
     ...DEFAULT_CATEGORY_VOLUMES,
 })
